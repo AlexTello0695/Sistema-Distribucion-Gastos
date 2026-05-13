@@ -207,21 +207,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btngasto'])) {
 
     <!-- HEADER -->
     <div class="header">
-        <div class="logo">Soluciones de Tecnología Grupo Dos</div>
-        
-        <div class="navbar">
-            <span>👤 <?php echo htmlspecialchars($_SESSION['username']); ?></span>
-                <a href='logout.php' class="nav-item">Cerrar Sesión</button>
-                <a href='registroGastos.php' class="nav-item" >Gastos</a>
-                <a href='dashboard.php' class="nav-item active" href='dashboard.php'>Dashboard</a>
-            <div class="main-content">
-       
-        </div>
+        <div class="header-content">
+            <div class="logo">Registro de Gastos</div>
+            <div class="navbar">
+                <span>👤 <?php echo htmlspecialchars($_SESSION['username']); ?></span>
+                <a href="registroGastos.php" class="nav-item active">Registrar Gasto</a>
+                <a href="dashboard.php" class="nav-item">Dashboard</a>
+                <a href="logout.php" class="nav-item">Cerrar Sesión</a>
+            </div>
         </div>
     </div>
 
-      <form method="POST">          
-      <div class="contenedor">
+    <form method="POST">          
+    <div class="contenedor">
             <img src="assets/add.png" class="icon" alt="">
         <h3>Registrar un periodo de Gasto</h3>
             <div>

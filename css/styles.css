@@ -8,75 +8,69 @@
 
     --fuentePrincipal: 'Outfit', cursive;
 }
-*{
-    font-family: Outfit;
-}
-html {
+
+* {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
-    font-size: 62.5%;
 }
-*, *:before, *:after {
-    box-sizing: inherit;
-}
-/* ------ Estilos Globales ------ */
-body{
-    background-color: var(--primario);
-    font-size: 1.6rem;
-    line-height: 1.5;
-}
-p{
-    font-size: 1.8rem;
-    font-family: Arial, Helvetica, sans-serif;
-    color: var(--blanco);
-}
-a{
-    text-decoration: none;
-}
-img{
-    width: 100%;
-}
-.contenedor{
 
-    flex:1;
-    background:white;
-    padding:20px;
-    border-radius:8px;
-    box-shadow:0 2px 6px rgba(0,0,0,0.1);
-    max-width: 150rem;
-    margin: 0 auto;
-    margin-top: 20px;
-    margin-bottom: 30px;
+body {
+    font-family: 'Outfit', sans-serif;
+    background: #f8f9fa;
+    padding-top: 80px;
+}
 
-}
-h1, h2,h3{
-    text-align: center;
-    color: var(--secundario);
-    font-family: var(--fuentePrincipal);
-}
-h1{
-    font-size: 4rem;
-}
-h2{
-    font-size: 3.0rem;
-    display: inline-flex;
-    margin: 0;
-}
-h3{
-    font-size: 2.4rem;
-    display: inline-flex;
-    margin: 0;
-}
 /* Header */
-.header{
-    background:#1f2937;
-    color:white;
-    padding:20px;
-    font-size:22px;
-    /* font-weight: bold; */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
 }
-/* .header__logo{
-    margin: 3rem 0;
-} */
+.header-content {
+            max-width: 1250px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+}
+        
+.navbar {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.navbar span {
+    opacity: 0.9;
+}
+        
+.nav-item {
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+        
+.nav-item:hover {
+    background: rgba(255,255,255,0.2);
+}
+        
+.nav-item.active {
+        background: rgba(255,255,255,0.3);
+}
 
 .icon{
     display: inline;
@@ -114,15 +108,6 @@ body {
   margin:0;
 }
 
-header {
-  display: flex;
-  align-items: center;
-  padding: 20px 40px;
-  font-size: 28px;
-
-  border-bottom: 1px solid #e5e5e5;
-  background: white;
-}
 
 .container {
   display: flex;
@@ -148,11 +133,6 @@ header {
   margin-bottom: 25px;
 }
 
-/* label {
-  font-weight: 600;
-  display: block;
-  margin-top: 10px;
-} */
 
 input {
   width: 100%;
@@ -245,33 +225,6 @@ font-size:22px;
 /* ------ ESTILOS PARA REGISTROGASTOS ------ */
 
 /* HEADER */
-.header-registro {
-  display: flex;
-  align-items: center;
-  padding: 20px 40px;
-  font-size: 28px;
-  font-weight: bold;
-  border-bottom: 1px solid #e5e5e5;
-  background: white;
-}
-
-.navbar {
-    display: inline-flex;
-    background: #eaeaea;
-    border-radius: 20px;
-    padding: 5px;
-}
-
-.nav-item {
-    padding: 8px 15px;
-    border-radius: 15px;
-    text-decoration: none;
-    color: #333;
-}
-
-.nav-item.active {
-    background: #fff;
-}
 
 
 /* INPUTS */
@@ -343,19 +296,7 @@ input, select, textarea {
     padding: 15px;
     font-size: 1.4rem;
     margin-top: auto;
-}  
-  
 }
-
-.header {
-    position: fixed;  /* Fijo en la parte superior */
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;  /* Por encima de todo */
-}
-
-
 
 .charts-grid {
     display: grid;
@@ -378,36 +319,3 @@ input, select, textarea {
         flex-direction: column;  /* Header vertical en móviles */
     }
 }
-
-
-
-
-
-/* Prueba de Estilos para Dashboard */
-
-.container-dashboard{
-max-width:auto;
-margin:auto;
-}
-
-/* ===== HEADER FIJO ===== */
-.header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 15px 30px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    z-index: 1000;
-}
-
-.header-content {
-    max-width: 1250px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-

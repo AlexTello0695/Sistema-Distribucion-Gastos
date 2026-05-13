@@ -136,7 +136,7 @@ $data_localidad = array_column($gastos_por_localidad, 'total');
     <!-- Header Fijo -->
     <div class="header">
         <div class="header-content">
-            <div class="logo">📊 Dashboard de Gastos</div>
+            <div class="logo">Dashboard de Gastos</div>
             <div class="navbar">
                 <span>👤 <?php echo htmlspecialchars($_SESSION['username']); ?></span>
                 <a href="registroGastos.php" class="nav-item">Registrar Gasto</a>
