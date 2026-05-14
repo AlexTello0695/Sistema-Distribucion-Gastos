@@ -115,22 +115,24 @@ $data_localidad = array_column($gastos_por_localidad, 'total');
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard de Gastos</title>
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/styles_dashboard.css" />
     <script src="js/vendor/apexcharts.min.js"></script>
-    
-    
+
+
 </head>
+
 <body>
 
     <!-- Header Fijo -->
@@ -174,7 +176,7 @@ $data_localidad = array_column($gastos_por_localidad, 'total');
 
         <!-- Gráficas en Mosaico (2 columnas) -->
         <div class="charts-grid">
-            
+
             <!-- Fila 1, Columna 1: Gastos por Período -->
             <div class="chart-card">
                 <h3>📅 Gastos por Período</h3>
@@ -223,24 +225,24 @@ $data_localidad = array_column($gastos_por_localidad, 'total');
                     </tr>
                 </thead>
                 <tbody>
-                    <?php 
+                    <?php
                     $contador = 1;
-                    foreach($gastos_por_empleado as $emp): 
+                    foreach ($gastos_por_empleado as $emp):
                         $promedio = $emp['cantidad'] > 0 ? $emp['total'] / $emp['cantidad'] : 0;
                     ?>
-                    <tr>
-                        <td><?php echo $contador++; ?></td>
-                        <td><strong><?php echo htmlspecialchars($emp['empleado']); ?></strong></td>
-                        <td>
-                            <span class="badge <?php echo $emp['tipo'] === 'Mantenedor' ? 'badge-primary' : 'badge-success'; ?>">
-                                <?php echo $emp['tipo']; ?>
-                            </span>
-                        </td>
-                        <td><?php echo $emp['cantidad']; ?></td>
-                        <td><strong>$<?php echo number_format($emp['total'], 2); ?></strong></td>
-                        <td>$<?php echo number_format($promedio, 2); ?></td>
-                    </tr>
-                    <?php endforeach;?>
+                        <tr>
+                            <td><?php echo $contador++; ?></td>
+                            <td><strong><?php echo htmlspecialchars($emp['empleado']); ?></strong></td>
+                            <td>
+                                <span class="badge <?php echo $emp['tipo'] === 'Mantenedor' ? 'badge-primary' : 'badge-success'; ?>">
+                                    <?php echo $emp['tipo']; ?>
+                                </span>
+                            </td>
+                            <td><?php echo $emp['cantidad']; ?></td>
+                            <td><strong>$<?php echo number_format($emp['total'], 2); ?></strong></td>
+                            <td>$<?php echo number_format($promedio, 2); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
@@ -258,24 +260,24 @@ $data_localidad = array_column($gastos_por_localidad, 'total');
                     </tr>
                 </thead>
                 <tbody>
-                    <?php 
+                    <?php
                     $total_general = $stats_generales['monto_total'];
-                    foreach($gastos_por_localidad as $loc): 
+                    foreach ($gastos_por_localidad as $loc):
                         $porcentaje = $total_general > 0 ? ($loc['total'] / $total_general) * 100 : 0;
                     ?>
-                    <tr>
-                        <td><strong><?php echo htmlspecialchars($loc['nombre_localidad']); ?></strong></td>
-                        <td><?php echo $loc['cantidad']; ?></td>
-                        <td><strong>$<?php echo number_format($loc['total'], 2); ?></strong></td>
-                        <td>
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <div style="flex: 1; background: #ecf0f1; height: 8px; border-radius: 4px; overflow: hidden;">
-                                    <div style="width: <?php echo $porcentaje; ?>%; background: #3498db; height: 100%;"></div>
+                        <tr>
+                            <td><strong><?php echo htmlspecialchars($loc['nombre_localidad']); ?></strong></td>
+                            <td><?php echo $loc['cantidad']; ?></td>
+                            <td><strong>$<?php echo number_format($loc['total'], 2); ?></strong></td>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <div style="flex: 1; background: #ecf0f1; height: 8px; border-radius: 4px; overflow: hidden;">
+                                        <div style="width: <?php echo $porcentaje; ?>%; background: #3498db; height: 100%;"></div>
+                                    </div>
+                                    <span style="font-size: 12px; color: #7f8c8d;"><?php echo number_format($porcentaje, 1); ?>%</span>
                                 </div>
-                                <span style="font-size: 12px; color: #7f8c8d;"><?php echo number_format($porcentaje, 1); ?>%</span>
-                            </div>
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
@@ -303,9 +305,9 @@ $data_localidad = array_column($gastos_por_localidad, 'total');
                     <label>Seleccionar Período:</label>
                     <select name="id_periodo" class="form-control">
                         <option value="">-- Todos los períodos --</option>
-                        <?php 
+                        <?php
                         $stmt = $pdo->query("SELECT id_periodo, CONCAT('Entre ', DATE_FORMAT(fecha_inicio, '%d/%m/%Y'), ' y ', DATE_FORMAT(fecha_fin, '%d/%m/%Y')) as periodo FROM periodo ORDER BY fecha_inicio DESC");
-                        while($p = $stmt->fetch(PDO::FETCH_ASSOC)): 
+                        while ($p = $stmt->fetch(PDO::FETCH_ASSOC)):
                         ?>
                             <option value="<?php echo $p['id_periodo']; ?>">
                                 <?php echo htmlspecialchars($p['periodo']); ?>
@@ -338,195 +340,260 @@ $data_localidad = array_column($gastos_por_localidad, 'total');
                     📥 Descargar Excel (.xlsx)
                 </button>
             </form>
-            <footer class="footer">
-                <p>© 2026 Soluciones de Tecnología Grupo Dos | Todos los derechos reservados</p>
-            </footer>
         </div>
-        
     </div>
+
+    <footer class="footer">
+        <p>© 2026 Soluciones de Tecnología Grupo Dos | Todos los derechos reservados</p>
+    </footer>
 
     <!-- Scripts de ApexCharts -->
     <script>
-document.addEventListener('DOMContentLoaded', function() {
-    
-    const colors = {
-        blue: '#3498db',
-        green: '#2ecc71',
-        orange: '#e67e22',
-        purple: '#9b59b6',
-        red: '#e74c3c'
-    };
+        document.addEventListener('DOMContentLoaded', function() {
 
-    function crearGraficaApex(elementId, options) {
-        const el = document.querySelector("#" + elementId);
-        if (!el) {
-            console.warn(`⚠️ Elemento #${elementId} no encontrado`);
-            return null;
-        }
-        if (typeof ApexCharts === 'undefined') {
-            console.error(`❌ ApexCharts no cargado para #${elementId}`);
-            return null;
-        }
-        try {
-            const chart = new ApexCharts(el, options);
-            chart.render();
-            return chart;
-        } catch (e) {
-            console.error(`❌ Error en #${elementId}:`, e.message);
-            return null;
-        }
-    }
+            const colors = {
+                blue: '#3498db',
+                green: '#2ecc71',
+                orange: '#e67e22',
+                purple: '#9b59b6',
+                red: '#e74c3c'
+            };
 
-    // 1. GRÁFICA DE PERÍODOS
-    crearGraficaApex('chartPeriodo', {
-        chart: { type: 'bar', height: 350, toolbar: { show: false } },
-        plotOptions: {
-            bar: { horizontal: true, borderRadius: 4, barHeight: '70%' }
-        },
-        series: [{
-            name: 'Total Gastado',
-            data: <?php echo json_encode($data_periodo ?: [0], JSON_NUMERIC_CHECK); ?>
-        }],
-        xaxis: {
-            categories: <?php echo json_encode($labels_periodo); ?>,
-            labels: {
-                formatter: function(value) {
-                    return '$' + parseFloat(value || 0).toLocaleString();
+            function crearGraficaApex(elementId, options) {
+                const el = document.querySelector("#" + elementId);
+                if (!el) {
+                    console.warn(`⚠️ Elemento #${elementId} no encontrado`);
+                    return null;
+                }
+                if (typeof ApexCharts === 'undefined') {
+                    console.error(`❌ ApexCharts no cargado para #${elementId}`);
+                    return null;
+                }
+                try {
+                    const chart = new ApexCharts(el, options);
+                    chart.render();
+                    return chart;
+                } catch (e) {
+                    console.error(`❌ Error en #${elementId}:`, e.message);
+                    return null;
                 }
             }
-        },
-        colors: [colors.blue],
-        legend: { show: false }
-    });
 
-    // 2. GRÁFICA DE RUBROS
-    crearGraficaApex('chartRubro', {
-        chart: { type: 'donut', height: 350 },
-        series: <?php echo json_encode($data_rubro ?: [0], JSON_NUMERIC_CHECK); ?>,
-        labels: <?php echo json_encode($labels_rubro); ?>,
-        colors: [colors.blue, colors.green, colors.orange, colors.purple, colors.red],
-        legend: { position: 'bottom', show: true },
-        plotOptions: {
-            pie: {
-                donut: {
-                    size: '65%',
+            // 1. GRÁFICA DE PERÍODOS
+            crearGraficaApex('chartPeriodo', {
+                chart: {
+                    type: 'bar',
+                    height: 350,
+                    toolbar: {
+                        show: false
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: true,
+                        borderRadius: 4,
+                        barHeight: '70%'
+                    }
+                },
+                series: [{
+                    name: 'Total Gastado',
+                    data: <?php echo json_encode($data_periodo ?: [0], JSON_NUMERIC_CHECK); ?>
+                }],
+                xaxis: {
+                    categories: <?php echo json_encode($labels_periodo); ?>,
                     labels: {
-                        show: true,
-                        total: {
-                            show: true,
-                            label: 'Total',
-                            formatter: function(w) {
-                                return '$' + (w.globals.seriesTotals.reduce((a,b)=>a+b,0) || 0).toLocaleString();
+                        formatter: function(value) {
+                            return '$' + parseFloat(value || 0).toLocaleString();
+                        }
+                    }
+                },
+                colors: [colors.blue],
+                legend: {
+                    show: false
+                }
+            });
+
+            // 2. GRÁFICA DE RUBROS
+            crearGraficaApex('chartRubro', {
+                chart: {
+                    type: 'donut',
+                    height: 350
+                },
+                series: <?php echo json_encode($data_rubro ?: [0], JSON_NUMERIC_CHECK); ?>,
+                labels: <?php echo json_encode($labels_rubro); ?>,
+                colors: [colors.blue, colors.green, colors.orange, colors.purple, colors.red],
+                legend: {
+                    position: 'bottom',
+                    show: true
+                },
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            size: '65%',
+                            labels: {
+                                show: true,
+                                total: {
+                                    show: true,
+                                    label: 'Total',
+                                    formatter: function(w) {
+                                        return '$' + (w.globals.seriesTotals.reduce((a, b) => a + b, 0) || 0).toLocaleString();
+                                    }
+                                }
                             }
                         }
                     }
-                }
-            }
-        },
-        dataLabels: { enabled: false },
-        tooltip: {
-            y: { formatter: function(v) { return '$' + (v||0).toLocaleString(); } }
-        }
-    });
-
-    // 3. GRÁFICA DE PROGRAMAS
-    crearGraficaApex('chartPrograma', {
-        chart: { type: 'radialBar', height: 350 },
-        series: <?php echo json_encode($data_programa ?: [0], JSON_NUMERIC_CHECK); ?>,
-        labels: <?php echo json_encode($labels_programa); ?>,
-        colors: [colors.blue, colors.green, colors.orange, colors.purple, colors.red],
-        plotOptions: {
-            radialBar: {
+                },
                 dataLabels: {
-                    name: { fontSize: '14px', fontWeight: 600 },
-                    value: {
-                        fontSize: '14px',
-                        formatter: function(val) { return '$' + (val||0).toLocaleString(); }
-                    },
-                    total: {
-                        show: true,
-                        label: 'Total',
-                        formatter: function(w) {
-                            return '$' + (w.globals.seriesTotals.reduce((a,b)=>a+b,0) || 0).toLocaleString();
+                    enabled: false
+                },
+                tooltip: {
+                    y: {
+                        formatter: function(v) {
+                            return '$' + (v || 0).toLocaleString();
                         }
                     }
                 }
-            }
-        },
-        stroke: { lineCap: 'round' }
-    });
+            });
 
-    // 4. GRÁFICA DE EVOLUCIÓN MENSUAL
-    crearGraficaApex('chartMensual', {
-        chart: {
-            type: 'area', height: 350, toolbar: { show: false },
-            zoom: { enabled: true },
-            animations: { enabled: true, easing: 'easeinout', speed: 800 }
-        },
-        series: [{
-            name: 'Gastos Mensuales',
-            data: <?php echo json_encode($data_mes ?: [0], JSON_NUMERIC_CHECK); ?>
-        }],
-        xaxis: {
-            categories: <?php echo json_encode($labels_mes); ?>,
-            tooltip: { enabled: false }
-        },
-        yaxis: {
-            labels: {
-                formatter: function(value) {
-                    return '$' + parseFloat(value || 0).toLocaleString();
+            // 3. GRÁFICA DE PROGRAMAS
+            crearGraficaApex('chartPrograma', {
+                chart: {
+                    type: 'radialBar',
+                    height: 350
+                },
+                series: <?php echo json_encode($data_programa ?: [0], JSON_NUMERIC_CHECK); ?>,
+                labels: <?php echo json_encode($labels_programa); ?>,
+                colors: [colors.blue, colors.green, colors.orange, colors.purple, colors.red],
+                plotOptions: {
+                    radialBar: {
+                        dataLabels: {
+                            name: {
+                                fontSize: '14px',
+                                fontWeight: 600
+                            },
+                            value: {
+                                fontSize: '14px',
+                                formatter: function(val) {
+                                    return '$' + (val || 0).toLocaleString();
+                                }
+                            },
+                            total: {
+                                show: true,
+                                label: 'Total',
+                                formatter: function(w) {
+                                    return '$' + (w.globals.seriesTotals.reduce((a, b) => a + b, 0) || 0).toLocaleString();
+                                }
+                            }
+                        }
+                    }
+                },
+                stroke: {
+                    lineCap: 'round'
                 }
-            }
-        },
-        colors: [colors.green],
-        fill: {
-            type: 'gradient',
-            gradient: { shadeIntensity: 1, opacityFrom: 0.7, opacityTo: 0.3, stops: [0, 90, 100] }
-        },
-        stroke: { curve: 'smooth', width: 3 },
-        markers: {
-            size: 5, colors: ['#fff'], strokeColors: colors.green, strokeWidth: 2, hover: { size: 7 }
-        },
-        tooltip: {
-            y: { formatter: function(v) { return '$' + (v||0).toLocaleString(); } }
+            });
+
+            // 4. GRÁFICA DE EVOLUCIÓN MENSUAL
+            crearGraficaApex('chartMensual', {
+                chart: {
+                    type: 'area',
+                    height: 350,
+                    toolbar: {
+                        show: false
+                    },
+                    zoom: {
+                        enabled: true
+                    },
+                    animations: {
+                        enabled: true,
+                        easing: 'easeinout',
+                        speed: 800
+                    }
+                },
+                series: [{
+                    name: 'Gastos Mensuales',
+                    data: <?php echo json_encode($data_mes ?: [0], JSON_NUMERIC_CHECK); ?>
+                }],
+                xaxis: {
+                    categories: <?php echo json_encode($labels_mes); ?>,
+                    tooltip: {
+                        enabled: false
+                    }
+                },
+                yaxis: {
+                    labels: {
+                        formatter: function(value) {
+                            return '$' + parseFloat(value || 0).toLocaleString();
+                        }
+                    }
+                },
+                colors: [colors.green],
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shadeIntensity: 1,
+                        opacityFrom: 0.7,
+                        opacityTo: 0.3,
+                        stops: [0, 90, 100]
+                    }
+                },
+                stroke: {
+                    curve: 'smooth',
+                    width: 3
+                },
+                markers: {
+                    size: 5,
+                    colors: ['#fff'],
+                    strokeColors: colors.green,
+                    strokeWidth: 2,
+                    hover: {
+                        size: 7
+                    }
+                },
+                tooltip: {
+                    y: {
+                        formatter: function(v) {
+                            return '$' + (v || 0).toLocaleString();
+                        }
+                    }
+                }
+            });
+
+            console.log('✅ ApexCharts inicializado');
+        });
+
+        // ===== FUNCIONES DE MODALES =====
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevenir scroll
         }
-    });
 
-    console.log('✅ ApexCharts inicializado');
-});
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restaurar scroll
+        }
 
-// ===== FUNCIONES DE MODALES =====
-function openModal(modalId) {
-    document.getElementById(modalId).style.display = 'block';
-    document.body.style.overflow = 'hidden'; // Prevenir scroll
-}
-
-function closeModal(modalId) {
-    document.getElementById(modalId).style.display = 'none';
-    document.body.style.overflow = 'auto'; // Restaurar scroll
-}
-
-// Cerrar modal al hacer clic fuera
-window.onclick = function(event) {
-    if (event.target.classList.contains('modal')) {
-        event.target.style.display = 'none';
-        document.body.style.overflow = 'auto';
-    }
-}
-
-// Cerrar modal con tecla ESC
-document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-        const modals = document.querySelectorAll('.modal');
-        modals.forEach(modal => {
-            if (modal.style.display === 'block') {
-                modal.style.display = 'none';
+        // Cerrar modal al hacer clic fuera
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
                 document.body.style.overflow = 'auto';
             }
+        }
+
+        // Cerrar modal con tecla ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const modals = document.querySelectorAll('.modal');
+                modals.forEach(modal => {
+                    if (modal.style.display === 'block') {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            }
         });
-    }
-});
-</script>
+    </script>
 
 </body>
+
 </html>
