@@ -146,7 +146,7 @@ $data_localidad = array_column($gastos_por_localidad, 'total');
         </div>
     </div>
 
-    <div class="container-dashboard">
+    <div class="container">
 
         <!-- Estadísticas Generales -->
         <div class="stats-grid">
@@ -338,7 +338,11 @@ $data_localidad = array_column($gastos_por_localidad, 'total');
                     📥 Descargar Excel (.xlsx)
                 </button>
             </form>
+            <footer class="footer">
+                <p>© 2026 Soluciones de Tecnología Grupo Dos | Todos los derechos reservados</p>
+            </footer>
         </div>
+        
     </div>
 
     <!-- Scripts de ApexCharts -->

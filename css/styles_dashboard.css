@@ -382,3 +382,12 @@
                 margin: 10% auto;
             }
         }
+
+.footer {
+    text-align: center;
+    background:linear-gradient( 110deg,  rgba(75,108,183,1) 11.3%, rgba(24,40,72,1) 99.3% );
+    padding: 24px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    margin-top: 20px;
+}
