@@ -65,17 +65,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btnperiodo'])) {
         ");
 
         $stmt->execute([
-           $id_periodo,
+            $id_periodo,
             $feini,
             $fefin,
             $id_localidad
         ]);
 
-       
-       
-        
         $pdo->commit();
-         
 
         // ✅ CORRECCIÓN: Variable correcta en mensaje 
         $_SESSION['mensaje'] = "✅ Periodo registrado correctamente";
@@ -183,8 +179,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btngasto'])) {
     header("Location: registroGastos.php");
     exit();
 }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -220,7 +214,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btngasto'])) {
 
     <form method="POST">          
     <div class="contenedor">
-            <img src="assets/add.png" class="icon" alt="">
         <h3>Registrar un periodo de Gasto</h3>
             <div>
                 <label>Fecha de salida</label>
@@ -251,7 +244,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btngasto'])) {
     
 <form method="POST" action="">
     <div class="contenedor">
-        <img src="assets/add.png" class="icon" alt="">
         <h3> Registrar Gasto por Empleado</h3>
 
         <!-- Empresa -->
@@ -275,7 +267,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btngasto'])) {
         </div>
 
         <!-- Empleados -->
-        <h3>🔧 Seleccionar Empleado</h3>
+        <h3>Seleccionar Empleado</h3>
         <div class="grid-2">
             <div class="form-group">
                 <label>Mantenedor</label>

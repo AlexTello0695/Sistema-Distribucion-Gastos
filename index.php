@@ -48,36 +48,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/stylesLogin.css" />
     <script src="js/app.js"></script>
     <title>Soluciones de Tecnología Grupo Dos</title>
   </head>
   <body>
-    <header>Soluciones de Tecnología Grupo Dos</header>
+    
 
-    <div class="container">
-      <div class="login-box">
-        <h2>→ Iniciar Sesión</h2>
-      
-        <?php if($error): ?>
-            <div class="error"><?php echo $error; ?></div>
-        <?php endif; ?>
-        <form method="post">
-        
+    <div class="login-box">
+        <h2>🔐 Iniciar Sesión</h2>
         <p class="subtitle">Ingresa tus credenciales para acceder al sistema</p>
-
-        <label>Usuario</label>
-        <input name="usuario" placeholder="Ingresa tu usuario" />
-
-        <label>Contraseña</label>
-        <input name="password" type="password" placeholder="Ingresa tu contraseña"/>
-        <input name="btnlogin" class="btn" type="submit" value ="→ Ingresar">
-        <a href="recovery.php">Recuperar Contraseña</a>
+        
+        <?php if($error): ?>
+            <div class="error"><?php echo htmlspecialchars($error); ?></div>
+        <?php endif; ?>
+        
+        <form method="POST">
+            <div class="form-group">
+                <label>Usuario</label>
+                <input type="text" name="usuario" placeholder="Ingresa tu usuario" required autocomplete="username">
+            </div>
+            
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input type="password" name="password" placeholder="Ingresa tu contraseña" required autocomplete="current-password">
+            </div>
+            
+            <button type="submit" class="btn">→ Ingresar</button>
         </form>
-
-      </div>
     </div>
-
-    <script></script>
   </body>
 </html>
